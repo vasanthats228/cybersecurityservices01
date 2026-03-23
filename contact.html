@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Stackly · Contact Us</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter & Clash Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Library for scroll animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1f;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        /* consistent palette */
+        :root {
+            --bg-deep: #0a0f1f;
+            --bg-card: #111827;
+            --accent-1: #3b82f6;
+            --accent-2: #8b5cf6;
+            --accent-3: #fbbf24;
+            --text-soft: #94a3b8;
+            --border-light: rgba(59, 130, 246, 0.2);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.9rem 2.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            background: var(--accent-1);
+            color: white;
+            font-size: 1rem;
+        }
+        .btn:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+
+        /* section spacing */
+        .section {
+            padding: 5rem 0;
+        }
+        .section-alt {
+            background: #0c111e;
+        }
+
+        /* ===== 3 CONTACT SECTIONS ===== */
+
+        /* 1. HERO SECTION */
+        .contact-hero {
+            /* background: linear-gradient(rgba(10,15,31,0.85), rgba(10,15,31,0.95)), url('css9.webp'); */
+            /* background: linear-gradient(135deg, #0a0f1f, #111827); */
+            background-size: cover;
+            background-position: center;
+            padding: 8rem 0 6rem;
+            text-align: center;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            background: rgba(59,130,246,0.15);
+            border: 1px solid var(--accent-1);
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 2. FORM + DETAILS SPLIT */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        /* details card */
+        .details-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-light);
+        }
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .detail-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(59,130,246,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: var(--accent-1);
+        }
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .social-links a {
+            color: var(--text-soft);
+            font-size: 1.5rem;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+        .social-links a:hover {
+            color: var(--accent-1);
+        }
+
+        /* form card with validation */
+        .form-card {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid var(--border-light);
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background: #1e293b;
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: 2px solid var(--accent-1);
+            border-color: transparent;
+        }
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+        .checkbox-group input {
+            width: auto;
+        }
+        .error-message {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        .error-message.visible {
+            display: block;
+        }
+
+        /* 3. MAP SECTION - exact style from reference */
+        .map-section {
+            max-width: 1280px;
+            margin: 0 auto 80px;
+            padding: 0 24px;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .map-container {
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+            border: 1px solid var(--border-light);
+            height: 450px;
+            width: 100%;
+            position: relative;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* responsive */
+        @media (max-width: 900px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .contact-hero { padding: 6rem 0 4rem; }
+            .container { padding: 0 1.5rem; }
+            .section { padding: 3rem 0; }
+            .map-container { height: 350px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 1rem; }
+            .details-card, .form-card { padding: 1.8rem; }
+            .detail-item { flex-direction: column; text-align: center; }
+            .social-links { justify-content: center; }
+            .map-container { height: 280px; }
+        }
+
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        iframe {
+            max-width: 100%;
+        }
+
+        /* Hide error messages initially */
+        .error-message { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER - Header will load here -->
+  <div id="header-placeholder"></div>
+  
+    <!-- SECTION 1: CONTACT HERO -->
+    <section class="contact-hero" data-aos="fade-down" data-aos-duration="1000">
+        <div class="container">
+            <span class="hero-badge">📬 GET IN TOUCH</span>
+            <h1 style="font-size: 3.5rem; margin-bottom: 1rem;">Let's secure your future</h1>
+            <p style="color: var(--text-soft); max-width: 600px; margin: 0 auto;">Have questions? Our security experts are ready to help you 24/7.</p>
+        </div>
+    </section>
+
+    <!-- SECTION 2: CONTACT FORM + DETAILS (split) -->
+    <section class="section">
+        <div class="container contact-grid">
+            <!-- LEFT: Contact details -->
+            <div class="details-card" data-aos="fade-right" data-aos-duration="800">
+                <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">Reach out directly</h2>
+                <p style="color: var(--text-soft); margin-bottom: 2rem;">Our team typically replies within 2 hours.</p>
+                
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <h4>Email</h4>
+                        <p style="color: var(--text-soft);">security@stackly.com</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-phone-alt"></i></div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p style="color: var(--text-soft);">+1 (555) 123-4567</p>
+                        <p style="color: var(--text-soft);">24/7 emergency line</p>
+                    </div>
+                </div>
+                
+                <div class="detail-item">
+                    <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <h4>Headquarters</h4>
+                        <p style="color: var(--text-soft);">221B Security Avenue<br>San Francisco, CA 94105</p>
+                    </div>
+                </div>
+
+                <div class="social-links">
+                    <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="404.html" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="404.html" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    <a href="404.html" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+
+            <!-- RIGHT: Contact form with validation -->
+            <div class="form-card" data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
+                <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Send us a message</h2>
+                <form id="contactForm" action="404.html" method="POST">
+                    <div class="form-group">
+                        <input type="text" id="fullName" placeholder="Full name *" required pattern="[A-Za-z\s]+" title="Only letters and spaces allowed">
+                        <div class="error-message" id="nameError">Please enter a valid name (letters and spaces only)</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Work email *" required>
+                        <div class="error-message" id="emailError">Please enter a valid email address</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="company" placeholder="Company name" required>
+                        <div class="error-message" id="companyError">Company name is required</div>
+                    </div>
+                    <div class="form-group">
+                        <select id="inquiryType" required>
+                            <option value="" disabled selected>Inquiry type *</option>
+                            <option value="sales">Sales</option>
+                            <option value="support">Technical support</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <div class="error-message" id="inquiryError">Please select an inquiry type</div>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" placeholder="How can we help? *" required></textarea>
+                        <div class="error-message" id="messageError">Message cannot be empty</div>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="privacy" required>
+                        <label for="privacy" style="color: var(--text-soft);">I agree to the privacy policy and terms of service *</label>
+                    </div>
+                    <button type="submit" class="btn" style="width: 100%;">Send message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: MAP (exact style from reference) -->
+    <section class="map-section" data-aos="zoom-in-up" data-aos-duration="900">
+        <div class="map-container">
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.835434509374!2d-122.4194155846819!3d37.774929279759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c5c3f2d2d%3A0x6b7b8b8b8b8b8b8b!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1234567890!5m2!1sen!2sus" 
+                allowfullscreen="" 
+                loading="lazy">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- FOOTER PLACEHOLDER - Footer will load here -->
+  <div id="footer-placeholder"></div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+       // ===== COMPLETE HEADER & FOOTER LOADER WITH HAMBURGER MENU =====
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===== FUNCTION TO SET BODY PADDING BASED ON HEADER HEIGHT =====
+    function setBodyPadding() {
+        const header = document.querySelector('.cyber-header, header');
+        if (header) {
+            const headerHeight = header.offsetHeight;
+            document.body.style.paddingTop = headerHeight + 'px';
+        } else {
+            document.body.style.paddingTop = '0px';
+        }
+    }
+
+    // ===== LOAD HEADER =====
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Header file not found');
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            setBodyPadding();
+            initHamburgerMenu();
+            initScrollEffect();
+            
+            // Update padding on window resize
+            window.addEventListener('resize', function() {
+                setBodyPadding();
+            });
+            
+            // Refresh AOS after header loads
+            setTimeout(() => {
+                if (typeof aosAnimation === 'function') aosAnimation();
+            }, 100);
+        })
+        .catch(error => {
+            console.warn('Header could not be loaded:', error);
+            document.getElementById('header-placeholder').innerHTML = 
+                '<div style="background:#0B1026; color:#ff6b6b; padding:1rem; text-align:center; position:fixed; top:0; width:100%; z-index:10000;">⚠️ Header Not Found - Check header.html file</div>';
+            setBodyPadding();
+        });
+
+    // ===== LOAD FOOTER =====
+    fetch('footer.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Footer file not found');
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => {
+            console.warn('Footer could not be loaded:', error);
+            document.getElementById('footer-placeholder').innerHTML = 
+                '<div style="background:#0B1026; color:#ff6b6b; padding:2rem; text-align:center;">⚠️ Footer Not Found - Check footer.html file</div>';
+        });
+
+    // ===== HAMBURGER MENU FUNCTIONALITY =====
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('hamburgerBtn');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        
+        // If elements don't exist, exit
+        if (!hamburger || !fullscreenMenu) return;
+        
+        // Function to open menu
+        function openMenu() {
+            fullscreenMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        }
+        
+        // Function to close menu
+        function closeMenu() {
+            fullscreenMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+        
+        // Open menu on hamburger click
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openMenu();
+        });
+        
+        // Close menu on close button click
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeMenu();
+            });
+        }
+        
+        // Close menu on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && fullscreenMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Close menu when clicking on any mobile link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-actions a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                closeMenu();
+            });
+        });
+        
+        // Close menu on window resize (if switching to desktop)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1000 && fullscreenMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Prevent body scroll when menu is open (touch devices)
+        fullscreenMenu.addEventListener('touchmove', function(e) {
+            if (fullscreenMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+    
+    // ===== HEADER SCROLL EFFECT =====
+    function initScrollEffect() {
+        const header = document.querySelector('.cyber-header');
+        if (!header) return;
+        
+        function handleScroll() {
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initial check
+    }
+    
+    // ===== AOS ANIMATION FUNCTION (if AOS is not loaded) =====
+    if (typeof aosAnimation !== 'function') {
+        window.aosAnimation = function() {
+            const elements = document.querySelectorAll('.aos-left, .aos-right, .aos-up');
+            for (let i = 0; i < elements.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = elements[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    elements[i].classList.add('aos-active');
+                }
+            }
+        };
+        
+        window.addEventListener('scroll', window.aosAnimation);
+        window.addEventListener('load', window.aosAnimation);
+    }
+    
+    // ===== FAQ ACCORDION FUNCTIONALITY =====
+    function initFaqAccordion() {
+        const faqQuestions = document.querySelectorAll('.faq-corp-question');
+        faqQuestions.forEach(q => {
+            // Remove any existing listeners to avoid duplicates
+            q.removeEventListener('click', handleFaqClick);
+            q.addEventListener('click', handleFaqClick);
+        });
+    }
+    
+    function handleFaqClick() {
+        const answer = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        answer.classList.toggle('open');
+        if (icon) {
+            icon.classList.toggle('fa-plus');
+            icon.classList.toggle('fa-minus');
+        }
+    }
+    
+    // Initialize FAQ after content loads
+    setTimeout(() => {
+        initFaqAccordion();
+    }, 500);
+    
+    // ===== WATCH FOR DYNAMIC CONTENT CHANGES =====
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Re-initialize FAQ when new content is added
+                initFaqAccordion();
+                // Re-run AOS animation
+                if (typeof window.aosAnimation === 'function') {
+                    setTimeout(window.aosAnimation, 100);
+                }
+            }
+        });
+    });
+    
+    // Start observing the document body for DOM changes
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
+        //========================================================
+        // Initialize AOS
+        AOS.init({
+            once: false,
+            mirror: true,
+            duration: 900,
+            offset: 20,
+            easing: 'ease-out-cubic'
+        });
+
+        (function() {
+            const form = document.getElementById('contactForm');
+            
+            // real-time validation for name field (letters/spaces only)
+            const nameInput = document.getElementById('fullName');
+            const nameError = document.getElementById('nameError');
+            
+            nameInput.addEventListener('input', function() {
+                const nameRegex = /^[A-Za-z\s]*$/;
+                if (!nameRegex.test(this.value)) {
+                    this.value = this.value.replace(/[^A-Za-z\s]/g, '');
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                let isValid = true;
+                
+                // reset error messages
+                document.querySelectorAll('.error-message').forEach(el => el.classList.remove('visible'));
+                
+                // validate name (letters/spaces)
+                const nameValue = nameInput.value.trim();
+                const nameRegex = /^[A-Za-z\s]+$/;
+                if (!nameValue || !nameRegex.test(nameValue)) {
+                    nameError.classList.add('visible');
+                    isValid = false;
+                }
+                
+                // validate email
+                const emailInput = document.getElementById('email');
+                const emailValue = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailValue || !emailRegex.test(emailValue)) {
+                    document.getElementById('emailError').classList.add('visible');
+                    isValid = false;
+                }
+                
+                // validate company
+                const companyInput = document.getElementById('company');
+                if (!companyInput.value.trim()) {
+                    document.getElementById('companyError').classList.add('visible');
+                    isValid = false;
+                }
+                
+                // validate inquiry type
+                const inquirySelect = document.getElementById('inquiryType');
+                if (!inquirySelect.value) {
+                    document.getElementById('inquiryError').classList.add('visible');
+                    isValid = false;
+                }
+                
+                // validate message
+                const messageInput = document.getElementById('message');
+                if (!messageInput.value.trim()) {
+                    document.getElementById('messageError').classList.add('visible');
+                    isValid = false;
+                }
+                
+                // validate privacy checkbox
+                const privacyCheck = document.getElementById('privacy');
+                if (!privacyCheck.checked) {
+                    alert('Please accept the privacy policy');
+                    isValid = false;
+                }
+                
+                if (isValid) {
+                    // redirect to 404.html (as specified)
+                    window.location.href = '404.html';
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

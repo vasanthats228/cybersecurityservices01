@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cyber Security · Login</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0c0f24 0%, #1b1f3e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .login-container {
+      max-width: 520px;
+      width: 100%;
+    }
+
+    /* Back to Home */
+    .back-home-wrapper {
+      margin-bottom: 0.8rem;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: #4ec9e0;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      background: rgba(78, 201, 224, 0.08);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      border: 1px solid rgba(78, 201, 224, 0.2);
+    }
+
+    .back-home i {
+      font-size: 0.9rem;
+    }
+
+    .back-home:hover {
+      background: #4ec9e0;
+      color: #0c0f24;
+    }
+
+    /* login card - COMPACT */
+    .login-card {
+      background: rgba(15, 20, 45, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 32px;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(78, 201, 224, 0.2);
+      padding: 1.5rem 1.5rem 1.5rem;
+      width: 100%;
+      border: 1px solid rgba(169, 124, 255, 0.3);
+    }
+
+    /* logo - NO BACKGROUND, NO BORDER RADIUS */
+    .logo-wrapper {
+      text-align: center;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-wrapper a {
+      display: inline-block;
+      line-height: 0;
+    }
+
+    .logo-wrapper img {
+      max-width: 140px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 8px #a97cff);
+    }
+
+    /* headings - compact */
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0f5ff;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(169, 124, 255, 0.5);
+    }
+
+    .subhead {
+      color: #4ec9e0;
+      font-size: 0.85rem;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    /* form groups - compact */
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #a97cff;
+      display: block;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* dropdown */
+    select {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid #2a2f4f;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #f0f5ff;
+      background: #1a1f3a;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234ec9e0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      background-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #a97cff;
+      box-shadow: 0 0 10px rgba(169, 124, 255, 0.3);
+    }
+
+    select option {
+      background: #0c0f24;
+      color: #f0f5ff;
+    }
+
+    .hint-text {
+      font-size: 0.7rem;
+      color: #8a8fbf;
+      margin-top: 0.2rem;
+      margin-left: 0.5rem;
+    }
+
+    /* input fields */
+    input {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border: 1.5px solid #2a2f4f;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #f0f5ff;
+      background: #1a1f3a;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #a97cff;
+      box-shadow: 0 0 10px rgba(169, 124, 255, 0.3);
+    }
+
+    input::placeholder {
+      color: #5a5f8a;
+    }
+
+    .input-error {
+      border-color: #ff4d4d !important;
+      box-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+    }
+
+    .error-message {
+      font-size: 0.65rem;
+      color: #ff6b6b;
+      margin-top: 0.1rem;
+      margin-left: 0.6rem;
+      min-height: 1rem;
+    }
+
+    /* email wrapper with checkmark */
+    .email-input-wrapper {
+      position: relative;
+    }
+
+    .email-input-wrapper i {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4ec9e0;
+      font-size: 1rem;
+      display: none;
+      text-shadow: 0 0 5px #4ec9e0;
+    }
+
+    .email-input-wrapper.valid i {
+      display: block;
+    }
+
+    /* remember and forgot row */
+    .row-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: 0.8rem 0 1.2rem;
+      font-size: 0.8rem;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #b0b5e0;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: #a97cff;
+      background: #1a1f3a;
+    }
+
+    .forgot-link {
+      color: #4ec9e0;
+      text-decoration: none;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .forgot-link:hover {
+      color: #a97cff;
+      text-decoration: underline;
+      text-shadow: 0 0 5px #a97cff;
+    }
+
+    /* checkbox error message */
+    #checkboxError {
+      margin-top: -0.5rem;
+      margin-bottom: 0.5rem;
+      font-size: 0.65rem;
+      color: #ff6b6b;
+      margin-left: 0.6rem;
+    }
+
+    /* login button - compact */
+    .login-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4ec9e0, #a97cff);
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 14px rgba(78, 201, 224, 0.3);
+      margin-bottom: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .login-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(169, 124, 255, 0.4);
+    }
+
+    /* signup link */
+    .signup-text {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #b0b5e0;
+      margin-bottom: 1.2rem;
+    }
+
+    .signup-text a {
+      color: #4ec9e0;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .signup-text a:hover {
+      color: #a97cff;
+    }
+
+    /* demo credentials box - compact */
+    .demo-box {
+      background: rgba(10, 15, 35, 0.7);
+      border-radius: 24px;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      border: 1.5px solid #2a2f4f;
+      backdrop-filter: blur(5px);
+    }
+
+    .demo-box h4 {
+      color: #a97cff;
+      font-size: 0.8rem;
+      margin-bottom: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .demo-box p {
+      color: #4ec9e0;
+      font-size: 0.75rem;
+      margin-bottom: 0.2rem;
+      font-family: monospace;
+    }
+
+    /* security footer - compact */
+    .security-footer {
+      text-align: center;
+      font-size: 0.65rem;
+      color: #8a8fbf;
+      border-top: 1px solid #2a2f4f;
+      padding-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .security-footer i {
+      color: #4ec9e0;
+      font-size: 0.7rem;
+    }
+
+    .security-footer span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.2rem;
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .login-card {
+        padding: 1.2rem;
+      }
+      
+      h1 {
+        font-size: 1.6rem;
+      }
+      
+      .row-flex {
+        flex-direction: column;
+        gap: 0.8rem;
+        align-items: flex-start;
+      }
+      
+      .logo-wrapper img {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <!-- Back to Home -->
+    <div class="back-home-wrapper">
+      <a href="home.html" class="back-home">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
+    <!-- login card -->
+    <div class="login-card">
+      <!-- logo - NO BACKGROUND, NO BORDER RADIUS -->
+      <div class="logo-wrapper">
+        <a href="home.html">
+          <img src="logo2.webp" alt="CyberSec Labs" 
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'40\' viewBox=\'0 0 140 40\'%3E%3Crect width=\'140\' height=\'40\' rx=\'20\' fill=\'%230c0f24\'/%3E%3Ctext x=\'20\' y=\'26\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\' fill=\'%234ec9e0\'%3ECyber%3C/text%3E%3Ctext x=\'85\' y=\'26\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\' fill=\'%23a97cff\'%3ESec%3C/text%3E%3C/svg%3E'; this.onerror=null;">
+        </a>
+      </div>
+
+      <!-- title -->
+      <h1>Secure Access</h1>
+      <div class="subhead">Login to Cyber Security Command Center</div>
+
+      <!-- login form - ALL FIELDS EMPTY -->
+      <form id="loginForm" onsubmit="return validateLogin()">
+        <!-- Login As - DROPDOWN with cyber roles -->
+        <div class="form-group">
+          <label>Login As</label>
+          <select id="loginAs" required>
+            <option value="" disabled selected>Select clearance level</option>
+            <option value="admin">Security Admin</option>
+            <option value="analyst">Security Analyst</option>
+            <!-- <option value="auditor">Compliance Auditor</option> -->
+          </select>
+          <div class="hint-text">Select admin or analyst for different security dashboards</div>
+        </div>
+
+        <!-- Email Address - EMPTY -->
+        <div class="form-group">
+          <label>Email Address</label>
+          <div class="email-input-wrapper" id="emailWrapper">
+            <input type="email" id="email" placeholder="security@company.com" value="" required>
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div id="emailError" class="error-message"></div>
+        </div>
+
+        <!-- Password - EMPTY -->
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="••••••••" value="" required>
+          <div id="passwordError" class="error-message"></div>
+        </div>
+
+        <!-- Remember me and Forgot password -->
+        <div class="row-flex">
+          <label class="checkbox-label">
+            <input type="checkbox" id="remember"> Remember this device
+          </label>
+          <a href="404.html" class="forgot-link">Reset credentials?</a>
+        </div>
+
+        <!-- Login button -->
+        <button type="submit" class="login-btn">Access Secure Portal</button>
+      </form>
+
+      <!-- Sign up link -->
+      <div class="signup-text">
+        Need security clearance? <a href="signup.html">Request access</a>
+      </div>
+
+      <!-- Demo credentials box -->
+      <div class="demo-box">
+        <h4><i class="fas fa-shield-alt" style="margin-right: 5px;"></i> TEST CREDENTIALS:</h4>
+        <p>• Admin: admin@cybersec.com</p>
+        <p>• Analyst: analyst@cybersec.com</p>
+        <!-- <p>• Auditor: auditor@cybersec.com</p> -->
+        <p>• Password: Min 8 chars, 1 uppercase, 1 number, 1 special</p>
+      </div>
+
+      <!-- Security footer -->
+      <div class="security-footer">
+        <span><i class="fas fa-lock"></i> 256-bit AES Encryption</span>
+        <span><i class="fas fa-shield-halved"></i> Zero Trust Architecture</span>
+        <span><i class="fas fa-eye"></i> SOC 2 Type II Compliant</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- validation script with inline errors (no popups) - SAME FUNCTIONALITY -->
+  <script>
+    function validateLogin() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const loginAs = document.getElementById('loginAs').value;
+      const remember = document.getElementById('remember');
+      const emailWrapper = document.getElementById('emailWrapper');
+      const emailInput = document.getElementById('email');
+      const passwordInput = document.getElementById('password');
+      const checkboxGroup = document.querySelector('.row-flex');
+      
+      // Reset errors
+      document.getElementById('emailError').textContent = '';
+      document.getElementById('passwordError').textContent = '';
+      emailInput.classList.remove('input-error');
+      passwordInput.classList.remove('input-error');
+      emailWrapper.classList.remove('valid');
+      
+      // Remove existing checkbox error
+      const existingCheckboxError = document.getElementById('checkboxError');
+      if (existingCheckboxError) existingCheckboxError.remove();
+      
+      let isValid = true;
+
+      // Role validation
+      if (!loginAs) {
+        const roleGroup = document.querySelector('.form-group');
+        let roleError = document.getElementById('roleError');
+        if (!roleError) {
+          roleError = document.createElement('div');
+          roleError.id = 'roleError';
+          roleError.className = 'error-message';
+          roleGroup.appendChild(roleError);
+        }
+        roleError.textContent = 'Please select your clearance level';
+        isValid = false;
+      } else {
+        const roleError = document.getElementById('roleError');
+        if (roleError) roleError.remove();
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email) {
+        document.getElementById('emailError').textContent = 'Email is required';
+        emailInput.classList.add('input-error');
+        isValid = false;
+      } else if (!emailRegex.test(email)) {
+        document.getElementById('emailError').textContent = 'Enter a valid email address';
+        emailInput.classList.add('input-error');
+        isValid = false;
+      } else {
+        emailWrapper.classList.add('valid');
+      }
+
+      // Password validation: min 8 chars, 1 uppercase, 1 number, 1 special
+      const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!password) {
+        document.getElementById('passwordError').textContent = 'Password is required';
+        passwordInput.classList.add('input-error');
+        isValid = false;
+      } else if (!passwordRegex.test(password)) {
+        document.getElementById('passwordError').textContent = 'Min 8 chars, 1 uppercase, 1 number, 1 special';
+        passwordInput.classList.add('input-error');
+        isValid = false;
+      }
+
+      // Remember me checkbox validation
+      if (!remember.checked) {
+        let checkboxError = document.getElementById('checkboxError');
+        if (!checkboxError) {
+          checkboxError = document.createElement('div');
+          checkboxError.id = 'checkboxError';
+          checkboxError.className = 'error-message';
+          checkboxGroup.parentNode.insertBefore(checkboxError, checkboxGroup.nextSibling);
+        }
+        checkboxError.textContent = 'You must verify device trust';
+        isValid = false;
+      }
+
+      if (isValid) {
+        // Redirect based on selection
+        if (loginAs === 'admin') {
+          window.location.href = 'admin-dashboard.html';
+        } else if (loginAs === 'analyst') {
+          window.location.href = 'analyst-dashboard.html';
+        } else if (loginAs === 'auditor') {
+          window.location.href = 'auditor-dashboard.html';
+        } else {
+          window.location.href = '404.html';
+        }
+      }
+      
+      return false;
+    }
+
+    // Real-time email validation for checkmark
+    document.getElementById('email').addEventListener('input', function(e) {
+      const email = e.target.value.trim();
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const wrapper = document.getElementById('emailWrapper');
+      
+      if (emailRegex.test(email)) {
+        wrapper.classList.add('valid');
+      } else {
+        wrapper.classList.remove('valid');
+      }
+    });
+  </script>
+</body>
+</html>

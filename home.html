@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Stackly Cyber · Corporate Security</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter & Clash Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0B1026;
+            color: #FFFFFF;
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        :root {
+            --navy: #0B1026;
+            --cyan: #00F0FF;
+            --purple: #8C6DFF;
+            --pink: #FF5E8A;
+            --card-bg: #131B36;
+            --border: rgba(0, 240, 255, 0.15);
+            --grad-1: linear-gradient(135deg, #00F0FF, #8C6DFF);
+            --grad-2: linear-gradient(135deg, #8C6DFF, #FF5E8A);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* Button styles with hover effects - all to 404 */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-primary {
+            background: var(--grad-1);
+            color: #0B1026;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4AF5FF, #A385FF);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 240, 255, 0.3);
+        }
+        .btn-outline {
+            border: 2px solid var(--cyan);
+            color: white;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--cyan);
+            color: #0B1026;
+            transform: translateY(-2px);
+        }
+        .btn-link {
+            color: var(--cyan);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+        .btn-link:hover {
+            gap: 1rem;
+            color: #4AF5FF;
+        }
+
+        /* Image wrapper */
+        .img-card {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+        .img-card:hover {
+            transform: scale(1.02);
+        }
+
+        /* ===== AOS STYLE ANIMATIONS ===== */
+        .aos-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .aos-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .aos-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .aos-left.aos-active, 
+        .aos-right.aos-active, 
+        .aos-up.aos-active {
+            opacity: 1;
+            transform: translate(0, 0);
+        }
+
+        /* Section spacing - alternating backgrounds */
+        .section-dark {
+            background: #0B1026;
+            padding: 6rem 0;
+        }
+        .section-light {
+            background: #0f1530;
+            padding: 6rem 0;
+        }
+
+        /* Section 1: Hero with video */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            isolation: isolate;
+            padding: 4rem 0;
+        }
+        #hero-video {
+            position: absolute;
+            top: 50%; left: 50%;
+            min-width: 100%; min-height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: -2;
+        }
+        .hero-overlay {
+            position: absolute; inset: 0;
+            background: radial-gradient(circle at 70% 30%, rgba(11,16,38,0.6), #0B1026 90%);
+            z-index: -1;
+        }
+        .hero h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero h1 span {
+            background: var(--grad-1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+        .hero-stat {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+        .hero-stat small {
+            font-size: 0.9rem;
+            color: #B0C0FF;
+            display: block;
+        }
+
+        /* Section 2: Metrics Dashboard */
+        .metrics-dashboard {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .metric-item {
+            background: var(--card-bg);
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 4px solid var(--cyan);
+        }
+        .metric-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--cyan);
+        }
+
+        /* Section 3: Leadership */
+        .leadership {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .leadership img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* Section 4: Services */
+        .services-corporate {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .service-corp {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border: 1px solid var(--border);
+        }
+        .service-corp i {
+            font-size: 2.5rem;
+            color: var(--cyan);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Section 5: Stats Horizontal */
+        .stats-horizontal {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            flex-wrap: wrap;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 16px;
+        }
+        .stat-block {
+            text-align: center;
+            flex: 1;
+            min-width: 140px;
+        }
+        .stat-icon {
+            font-size: 2rem;
+            color: var(--purple);
+        }
+
+        /* Section 6: Features Alternating */
+        .feature-alt {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        .feature-alt.reverse .feature-img {
+            order: 2;
+        }
+        .feature-img {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+        }
+
+        /* Section 7: Trust Bar */
+        .trust-bar {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 3rem;
+            padding: 3rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+        .client-logo {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #B0C0FF;
+        }
+
+        /* Section 8: Testimonials */
+        .testimonials-corp {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .testimonial-corp {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 8px;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-size: cover;
+        }
+
+        /* Section 9: Process Steps */
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .process-step {
+            text-align: center;
+            position: relative;
+            padding: 2rem;
+            background: var(--card-bg);
+        }
+        .step-number-bg {
+            font-size: 5rem;
+            font-weight: 700;
+            color: rgba(132, 240, 248, 0.911);
+            line-height: 1;
+        }
+
+        /* Section 10: Case Study */
+        .case-study {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 8px;
+        }
+
+        /* Section 11: Awards */
+        .awards-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .award-item {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-left: 4px solid var(--pink);
+        }
+
+        /* Section 12: Team */
+        .team-corp {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+        .team-member {
+            text-align: center;
+        }
+        .member-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Section 13: CTA */
+        .cta-background {
+            background: linear-gradient(rgba(67, 82, 146, 0.9), rgba(64, 79, 147, 0.9)), url('css1.webp');
+            background-size: cover;
+            background-attachment: fixed;
+            padding: 5rem;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        /* Section 14: Contact */
+        .contact-corp {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            background: var(--card-bg);
+            padding: 4rem;
+            border-radius: 8px;
+        }
+        .contact-info i {
+            color: var(--cyan);
+            margin-right: 1rem;
+        }
+
+        /* FAQ Accordion - HTML/CSS Only (No JavaScript) */
+.faq-corp-item {
+    border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+    margin-bottom: 0;
+    position: relative;
+}
+
+.faq-checkbox {
+    display: none;
+}
+
+.faq-corp-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 1.2rem 0;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    width: 100%;
+}
+
+.faq-corp-question:hover {
+    color: var(--cyan);
+}
+
+.faq-corp-question span {
+    flex: 1;
+}
+
+.faq-corp-question i {
+    transition: transform 0.3s ease;
+    font-size: 1rem;
+}
+
+.faq-corp-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-out;
+    padding: 0 2rem 0 0;
+    color: #B0C0FF;
+    line-height: 1.6;
+}
+
+/* When checkbox is checked, show answer and rotate icon */
+.faq-checkbox:checked ~ .faq-corp-answer {
+    max-height: 200px;
+    padding-bottom: 1.2rem;
+}
+
+.faq-checkbox:checked + .faq-corp-question i {
+    transform: rotate(180deg);
+}
+
+        /* Fully responsive - no horizontal scroll */
+        @media (max-width: 1024px) {
+            .metrics-dashboard,
+            .services-corporate,
+            .testimonials-corp,
+            .process-steps,
+            .awards-list,
+            .team-corp {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 { font-size: 3.5rem; }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.8rem; }
+            .metrics-dashboard,
+            .services-corporate,
+            .testimonials-corp,
+            .process-steps,
+            .awards-list,
+            .team-corp,
+            .leadership,
+            .feature-alt,
+            .case-study,
+            .contact-corp {
+                grid-template-columns: 1fr;
+            }
+            .feature-alt.reverse .feature-img {
+                order: 0;
+            }
+            .stats-horizontal {
+                flex-direction: column;
+                align-items: center;
+            }
+            .stat-block {
+                width: 100%;
+            }
+            .container { padding: 0 1.5rem; }
+            .section-dark, .section-light { padding: 4rem 0; }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 { font-size: 2.2rem; }
+            .container { padding: 0 1rem; }
+            .hero-stats { flex-direction: column; gap: 1rem; }
+        }
+
+        html, body { max-width: 100%; overflow-x: hidden; }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER - Header will load here -->
+  <div id="header-placeholder"></div>
+
+    <!-- SECTION 1: HERO with video -->
+    <section class="hero">
+        <video autoplay muted loop playsinline id="hero-video">
+            <source src="cybervid2.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="container">
+            <span class="aos-up" style="color: var(--cyan); text-transform: uppercase; letter-spacing: 4px;">STACKLY CYBER</span>
+            <h1 class="aos-left">Enterprise-Grade <span>Security</span> for the Digital Age</h1>
+            <p class="aos-right" style="font-size: 1.2rem; max-width: 600px; margin: 2rem 0;">AI-powered threat detection, zero-trust architecture, and 24/7 incident response trusted by global enterprises.</p>
+            <a href="404.html" class="btn btn-primary aos-up">Schedule Consultation</a>
+            <div class="hero-stats aos-left">
+                <div class="hero-stat">98% <small>Threat Prevention</small></div>
+                <div class="hero-stat">500+ <small>Enterprise Clients</small></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Metrics Dashboard (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="metrics-dashboard">
+                <div class="metric-item aos-left"><span class="metric-number">98%</span><p>Threats Blocked</p><a href="404.html" class="btn-link">↗</a></div>
+                <div class="metric-item aos-right"><span class="metric-number">500+</span><p>Active Clients</p><a href="404.html" class="btn-link">↗</a></div>
+                <div class="metric-item aos-left"><span class="metric-number">24/7</span><p>Response Team</p><a href="404.html" class="btn-link">↗</a></div>
+                <div class="metric-item aos-right"><span class="metric-number">15+</span><p>Years Experience</p><a href="404.html" class="btn-link">↗</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Leadership Message (light) -->
+    <section class="section-light">
+        <div class="container">
+            <div class="leadership">
+                <div class="aos-left">
+                    <span style="color: var(--cyan); letter-spacing: 3px;">CEO MESSAGE</span>
+                    <h2 style="font-size: 2.5rem; margin: 1rem 0;">Protecting What Matters Most</h2>
+                    <p>In an era of increasing cyber threats, Stackly stands as your trusted partner. Our commitment to innovation and excellence ensures your infrastructure remains secure.</p>
+                    <a href="404.html" class="btn btn-outline" style="margin-top: 2rem;">Read Full Message</a>
+                </div>
+                <img src="css4.webp" alt="CEO" class="aos-right" style="border-radius: 8px; width:100%;">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Services Corporate (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="aos-up" style="font-size: 2.5rem; text-align: center; margin-bottom: 3rem;">Core Security Solutions</h2>
+            <div class="services-corporate">
+                <div class="service-corp aos-left"><i class="fas fa-shield-halved"></i><h3>Network Security</h3><p>Advanced firewall and intrusion prevention.</p><a href="404.html" class="btn-link">Learn more →</a></div>
+                <div class="service-corp aos-up"><i class="fas fa-cloud"></i><h3>Cloud Protection</h3><p>Multi-cloud security for AWS, Azure, GCP.</p><a href="404.html" class="btn-link">Learn more →</a></div>
+                <div class="service-corp aos-right"><i class="fas fa-user-secret"></i><h3>Identity Management</h3><p>Zero-trust IAM and PAM <br> solutions.</p><a href="404.html" class="btn-link">Learn more →</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Stats Horizontal (light) -->
+    <section class="section-light">
+        <div class="container">
+            <div class="stats-horizontal">
+                <div class="stat-block aos-left"><div class="stat-icon"><i class="fas fa-shield"></i></div><span style="font-size: 2rem; color: var(--cyan);">98%</span><p>Threat Block Rate</p><a href="404.html" class="btn-link">↗</a></div>
+                <div class="stat-block aos-up"><div class="stat-icon"><i class="fas fa-building"></i></div><span style="font-size: 2rem; color: var(--purple);">500+</span><p>Enterprise Clients</p><a href="404.html" class="btn-link">↗</a></div>
+                <div class="stat-block aos-right"><div class="stat-icon"><i class="fas fa-clock"></i></div><span style="font-size: 2rem; color: var(--pink);">24/7</span><p>Response Team</p><a href="404.html" class="btn-link">↗</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: Features Alternating (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="feature-alt">
+                <div class="aos-left"><h3>AI-Powered Threat Detection</h3><p>Machine learning models identify and block zero-day attacks in real-time.</p><a href="404.html" class="btn btn-outline">Explore</a></div>
+                <div class="feature-img aos-right" style="background-image: url('css16.webp')"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: Trust Bar (light) -->
+    <section class="section-light">
+        <div class="container">
+            <div class="trust-bar">
+                <span class="client-logo aos-left">Atlantiz</span>
+                <span class="client-logo aos-up">Nexum</span>
+                <span class="client-logo aos-right">FinCore</span>
+                <span class="client-logo aos-left">HealthPlus</span>
+                <span class="client-logo aos-right">SecureTech</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: Testimonials Corporate (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="aos-up" style="font-size: 2.5rem; text-align: center;">Trusted by Industry Leaders</h2>
+            <div class="testimonials-corp">
+                <div class="testimonial-corp aos-left"><p>"Stackly's platform transformed our security posture."</p><div class="testimonial-author"><div class="author-avatar" style="background-image: url('css15.webp')"></div><div><strong>Michael Chen</strong><br>CISO, FinCore</div></div></div>
+                <div class="testimonial-corp aos-up"><p>"24/7 response team mitigated a ransomware attack within minutes."</p><div class="testimonial-author"><div class="author-avatar" style="background-image: url('css14.webp')"></div><div><strong>Sarah Williams</strong><br>CTO, HealthPlus</div></div></div>
+                <div class="testimonial-corp aos-right"><p>"The zero-trust implementation was seamless."</p><div class="testimonial-author"><div class="author-avatar" style="background-image: url('css13.webp')"></div><div><strong>David Rodriguez</strong><br>IT Director</div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 9: Process Steps (light) -->
+    <section class="section-light">
+        <div class="container">
+            <h2 class="aos-up" style="font-size: 2.5rem; text-align: center;">How We Secure Your Infrastructure</h2>
+            <div class="process-steps">
+                <div class="process-step aos-left"><div class="step-number-bg">01</div><h3>Assessment</h3><p>Deep vulnerability analysis</p><a href="404.html" class="btn-link">Learn →</a></div>
+                <div class="process-step aos-up"><div class="step-number-bg">02</div><h3>Implementation</h3><p>Zero-trust deployment</p><a href="404.html" class="btn-link">Learn →</a></div>
+                <div class="process-step aos-right"><div class="step-number-bg">03</div><h3>Monitoring</h3><p>24/7 threat detection</p><a href="404.html" class="btn-link">Learn →</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 10: Case Study (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="case-study">
+                <div class="aos-left"><span style="color: var(--cyan);">CASE STUDY</span><h2 style="font-size: 2rem;">Global Bank Achieves Zero-Trust</h2><p>How we helped a top 10 bank implement zero-trust across 50,000 endpoints.</p><a href="404.html" class="btn btn-outline">Read Case Study</a></div>
+                <img src="css12.webp" class="aos-right" style="width:100%; border-radius:8px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 11: Awards (light) -->
+    <section class="section-light">
+        <div class="container">
+            <h2 class="aos-up" style="font-size: 2.5rem;">Industry Recognition</h2>
+            <div class="awards-list">
+                <div class="award-item aos-left"><i class="fas fa-trophy" style="color: var(--cyan);"></i><h3>Global Infosec Award 2026</h3><a href="404.html" class="btn-link">View →</a></div>
+                <div class="award-item aos-right"><i class="fas fa-medal" style="color: var(--purple);"></i><h3>Best Security Innovation</h3><a href="404.html" class="btn-link">View →</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 12: Team (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <h2 class="aos-up" style="font-size: 2.5rem;">Leadership Team</h2>
+            <div class="team-corp">
+                <div class="team-member aos-left"><div class="member-photo" style="background-image: url('css11.webp')"></div><h3>Alex Rivera</h3><p>CEO & Co-Founder</p><a href="404.html" class="btn-link">Contact</a></div>
+                <div class="team-member aos-right"><div class="member-photo" style="background-image: url('css10.webp')"></div><h3>Jamie Lin</h3><p>CTO</p><a href="404.html" class="btn-link">Contact</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 13: CTA Background (light) -->
+    <section class="section-light">
+        <div class="container">
+            <div class="cta-background aos-up">
+                <h2 style="font-size: 2.5rem;">Ready to Secure Your Enterprise?</h2>
+                <p style="margin: 1.5rem 0;">Join 500+ companies that trust Stackly.</p>
+                <a href="404.html" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 14: Contact Corporate (dark) -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="contact-corp">
+                <div class="contact-info aos-left"><h2>Contact Our Team</h2><p><i class="fas fa-envelope"></i> security@stackly.com</p><p><i class="fas fa-phone"></i> +1 (555) 123-4567</p><p><i class="fas fa-clock"></i> 24/7 Emergency Response</p></div>
+                <div class="aos-right"><a href="404.html" class="btn btn-primary">Schedule Consultation</a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 15: FAQ Accordion (light) with 6 items - HTML/CSS Only -->
+<section class="section-light">
+    <div class="container">
+        <h2 class="aos-up" style="font-size: 2.5rem; text-align: center;">Frequently Asked Questions</h2>
+        <div class="faq-corp">
+            
+            <!-- FAQ Item 1 -->
+            <div class="faq-corp-item aos-left">
+                <input type="checkbox" id="faq1" class="faq-checkbox">
+                <label for="faq1" class="faq-corp-question">
+                    <span>What makes Stackly different?</span>
+                    <i class="fas fa-chevron-down" style="color: var(--cyan);"></i>
+                </label>
+                <div class="faq-corp-answer">
+                    Our AI-driven platform adapts to new threats in real-time, providing proactive protection. <a href="404.html" class="btn-link">Learn more</a>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 2 -->
+            <div class="faq-corp-item aos-right">
+                <input type="checkbox" id="faq2" class="faq-checkbox">
+                <label for="faq2" class="faq-corp-question">
+                    <span>How fast is incident response?</span>
+                    <i class="fas fa-chevron-down" style="color: var(--cyan);"></i>
+                </label>
+                <div class="faq-corp-answer">
+                    Average response time is under 60 seconds with our 24/7 SOC team. <a href="404.html" class="btn-link">Learn more</a>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 3 -->
+            <div class="faq-corp-item aos-left">
+                <input type="checkbox" id="faq3" class="faq-checkbox">
+                <label for="faq3" class="faq-corp-question">
+                    <span>Do you offer a free trial?</span>
+                    <i class="fas fa-chevron-down" style="color: var(--cyan);"></i>
+                </label>
+                <div class="faq-corp-answer">
+                    Yes, we offer a 14-day enterprise trial with full features. <a href="404.html" class="btn-link">Learn more</a>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 4 -->
+            <div class="faq-corp-item aos-right">
+                <input type="checkbox" id="faq4" class="faq-checkbox">
+                <label for="faq4" class="faq-corp-question">
+                    <span>What industries do you serve?</span>
+                    <i class="fas fa-chevron-down" style="color: var(--cyan);"></i>
+                </label>
+                <div class="faq-corp-answer">
+                    We specialize in finance, healthcare, energy, and government sectors. <a href="404.html" class="btn-link">Learn more</a>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 5 -->
+            <div class="faq-corp-item aos-left">
+                <input type="checkbox" id="faq5" class="faq-checkbox">
+                <label for="faq5" class="faq-corp-question">
+                    <span>Is Stackly SOC2 compliant?</span>
+                    <i class="fas fa-chevron-down" style="color: var(--cyan);"></i>
+                </label>
+                <div class="faq-corp-answer">
+                    Yes, we maintain SOC2 Type II certification and comply with major frameworks. <a href="404.html" class="btn-link">Learn more</a>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 6 -->
+            <div class="faq-corp-item aos-right">
+                <input type="checkbox" id="faq6" class="faq-checkbox">
+                <label for="faq6" class="faq-corp-question">
+                    <span>Do you offer 24/7 support?</span>
+                    <i class="fas fa-chevron-down" style="color: var(--cyan);"></i>
+                </label>
+                <div class="faq-corp-answer">
+                    Our Security Operations Center provides 24/7 monitoring and incident response. <a href="404.html" class="btn-link">Learn more</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+    <!-- FOOTER PLACEHOLDER - Footer will load here -->
+  <div id="footer-placeholder"></div>
+
+    <script>
+
+        // ===== COMPLETE HEADER & FOOTER LOADER WITH HAMBURGER MENU =====
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===== FUNCTION TO SET BODY PADDING BASED ON HEADER HEIGHT =====
+    function setBodyPadding() {
+        const header = document.querySelector('.cyber-header, header');
+        if (header) {
+            const headerHeight = header.offsetHeight;
+            document.body.style.paddingTop = headerHeight + 'px';
+        } else {
+            document.body.style.paddingTop = '0px';
+        }
+    }
+
+    // ===== LOAD HEADER =====
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Header file not found');
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            setBodyPadding();
+            initHamburgerMenu();
+            initScrollEffect();
+            
+            // Update padding on window resize
+            window.addEventListener('resize', function() {
+                setBodyPadding();
+            });
+            
+            // Refresh AOS after header loads
+            setTimeout(() => {
+                if (typeof aosAnimation === 'function') aosAnimation();
+            }, 100);
+        })
+        .catch(error => {
+            console.warn('Header could not be loaded:', error);
+            document.getElementById('header-placeholder').innerHTML = 
+                '<div style="background:#0B1026; color:#ff6b6b; padding:1rem; text-align:center; position:fixed; top:0; width:100%; z-index:10000;">⚠️ Header Not Found - Check header.html file</div>';
+            setBodyPadding();
+        });
+
+    // ===== LOAD FOOTER =====
+    fetch('footer.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Footer file not found');
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => {
+            console.warn('Footer could not be loaded:', error);
+            document.getElementById('footer-placeholder').innerHTML = 
+                '<div style="background:#0B1026; color:#ff6b6b; padding:2rem; text-align:center;">⚠️ Footer Not Found - Check footer.html file</div>';
+        });
+
+    // ===== HAMBURGER MENU FUNCTIONALITY =====
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('hamburgerBtn');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        
+        // If elements don't exist, exit
+        if (!hamburger || !fullscreenMenu) return;
+        
+        // Function to open menu
+        function openMenu() {
+            fullscreenMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        }
+        
+        // Function to close menu
+        function closeMenu() {
+            fullscreenMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+        
+        // Open menu on hamburger click
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openMenu();
+        });
+        
+        // Close menu on close button click
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeMenu();
+            });
+        }
+        
+        // Close menu on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && fullscreenMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Close menu when clicking on any mobile link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-actions a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                closeMenu();
+            });
+        });
+        
+        // Close menu on window resize (if switching to desktop)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1000 && fullscreenMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Prevent body scroll when menu is open (touch devices)
+        fullscreenMenu.addEventListener('touchmove', function(e) {
+            if (fullscreenMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+    
+    // ===== HEADER SCROLL EFFECT =====
+    function initScrollEffect() {
+        const header = document.querySelector('.cyber-header');
+        if (!header) return;
+        
+        function handleScroll() {
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initial check
+    }
+    
+    // ===== AOS ANIMATION FUNCTION (if AOS is not loaded) =====
+    if (typeof aosAnimation !== 'function') {
+        window.aosAnimation = function() {
+            const elements = document.querySelectorAll('.aos-left, .aos-right, .aos-up');
+            for (let i = 0; i < elements.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = elements[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    elements[i].classList.add('aos-active');
+                }
+            }
+        };
+        
+        window.addEventListener('scroll', window.aosAnimation);
+        window.addEventListener('load', window.aosAnimation);
+    }
+    
+    // ===== FAQ ACCORDION FUNCTIONALITY =====
+    function initFaqAccordion() {
+        const faqQuestions = document.querySelectorAll('.faq-corp-question');
+        faqQuestions.forEach(q => {
+            // Remove any existing listeners to avoid duplicates
+            q.removeEventListener('click', handleFaqClick);
+            q.addEventListener('click', handleFaqClick);
+        });
+    }
+    
+    function handleFaqClick() {
+        const answer = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        answer.classList.toggle('open');
+        if (icon) {
+            icon.classList.toggle('fa-plus');
+            icon.classList.toggle('fa-minus');
+        }
+    }
+    
+    // Initialize FAQ after content loads
+    setTimeout(() => {
+        initFaqAccordion();
+    }, 500);
+    
+    // ===== WATCH FOR DYNAMIC CONTENT CHANGES =====
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Re-initialize FAQ when new content is added
+                initFaqAccordion();
+                // Re-run AOS animation
+                if (typeof window.aosAnimation === 'function') {
+                    setTimeout(window.aosAnimation, 100);
+                }
+            }
+        });
+    });
+    
+    // Start observing the document body for DOM changes
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
+
+        //=====================================================
+        // AOS style scroll animations (left/right/up)
+        function aosAnimation() {
+            const elements = document.querySelectorAll('.aos-left, .aos-right, .aos-up');
+            for (let i = 0; i < elements.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = elements[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    elements[i].classList.add('aos-active');
+                }
+            }
+        }
+        window.addEventListener('scroll', aosAnimation);
+        window.addEventListener('load', aosAnimation);
+
+       
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Cyber Security · Sign Up</title>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #0c0f24 0%, #1b1f3e 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .signup-container {
+      max-width: 560px;
+      width: 100%;
+    }
+
+    /* Back to Home - outside form border */
+    .back-home-wrapper {
+      margin-bottom: 0.8rem;
+    }
+
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: #4ec9e0;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+      background: rgba(78, 201, 224, 0.08);
+      padding: 0.5rem 1.2rem;
+      border-radius: 60px;
+      border: 1px solid rgba(78, 201, 224, 0.2);
+    }
+
+    .back-home i {
+      font-size: 0.9rem;
+    }
+
+    .back-home:hover {
+      background: #4ec9e0;
+      color: #0c0f24;
+    }
+
+    /* signup card - COMPACT */
+    .signup-card {
+      background: rgba(15, 20, 45, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 32px;
+      box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(78, 201, 224, 0.2);
+      padding: 1.5rem 1.5rem 1.5rem;
+      width: 100%;
+      border: 1px solid rgba(169, 124, 255, 0.3);
+    }
+
+    /* logo - minimal background */
+    .logo-wrapper {
+      text-align: center;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo-wrapper a {
+      display: inline-block;
+      line-height: 0;
+    }
+
+    .logo-wrapper img {
+      max-width: 140px;
+      height: auto;
+      display: block;
+      filter: drop-shadow(0 0 5px #a97cff);
+    }
+
+    /* headings - compact */
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f0f5ff;
+      margin-bottom: 0.2rem;
+      line-height: 1.2;
+      text-align: center;
+      text-shadow: 0 0 10px rgba(169, 124, 255, 0.5);
+    }
+
+    .subhead {
+      color: #4ec9e0;
+      font-size: 0.9rem;
+      margin-bottom: 1.2rem;
+      text-align: center;
+    }
+
+    /* TWO-COLUMN GRID - compact */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.8rem;
+    }
+
+    .form-group {
+      margin-bottom: 0.2rem;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 0.75rem;
+      color: #a97cff;
+      display: block;
+      margin-bottom: 0.2rem;
+      letter-spacing: 0.2px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border: 1.5px solid #2a2f4f;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #f0f5ff;
+      background: #1a1f3a;
+      transition: all 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #a97cff;
+      box-shadow: 0 0 10px rgba(169, 124, 255, 0.3);
+    }
+
+    input::placeholder {
+      color: #5a5f8a;
+    }
+
+    select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%234ec9e0' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.8rem center;
+      background-size: 0.8rem;
+      cursor: pointer;
+    }
+
+    select option {
+      background: #0c0f24;
+      color: #f0f5ff;
+    }
+
+    /* error messages - tiny */
+    .error-message {
+      font-size: 0.65rem;
+      color: #ff6b6b;
+      margin-top: 0.1rem;
+      margin-left: 0.6rem;
+      min-height: 0.9rem;
+    }
+
+    .input-error {
+      border-color: #ff4d4d !important;
+      box-shadow: 0 0 10px rgba(255, 77, 77, 0.3);
+    }
+
+    /* checkbox - compact */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin: 1rem 0 1rem;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      margin-top: 0.1rem;
+      accent-color: #a97cff;
+      background: #1a1f3a;
+    }
+
+    .checkbox-group label {
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: #b0b5e0;
+      margin-bottom: 0;
+      line-height: 1.3;
+    }
+
+    .checkbox-group a {
+      color: #4ec9e0;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .checkbox-group a:hover {
+      color: #a97cff;
+    }
+
+    /* create account button - compact */
+    .create-btn {
+      width: 100%;
+      background: linear-gradient(135deg, #4ec9e0, #a97cff);
+      color: white;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 14px rgba(78, 201, 224, 0.3);
+      margin-bottom: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .create-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(169, 124, 255, 0.4);
+    }
+
+    /* login link */
+    .login-link {
+      text-align: center;
+      font-size: 0.8rem;
+      color: #b0b5e0;
+      margin-bottom: 0.8rem;
+    }
+
+    .login-link a {
+      color: #4ec9e0;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      color: #a97cff;
+    }
+
+    /* secure footer */
+    .secure-footer {
+      text-align: center;
+      font-size: 0.7rem;
+      color: #8a8fbf;
+      border-top: 1px solid #2a2f4f;
+      padding-top: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .secure-footer i {
+      color: #4ec9e0;
+      font-size: 0.8rem;
+    }
+
+    /* responsive */
+    @media (max-width: 500px) {
+      .signup-card {
+        padding: 1.2rem;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 0.6rem;
+      }
+      
+      h1 {
+        font-size: 1.6rem;
+      }
+      
+      .logo-wrapper img {
+        max-width: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <!-- Back to Home - OUTSIDE form border -->
+    <div class="back-home-wrapper">
+      <a href="home.html" class="back-home">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+    </div>
+
+    <!-- signup card -->
+    <div class="signup-card">
+      <!-- logo with minimal background -->
+      <div class="logo-wrapper">
+        <a href="home.html">
+          <img src="logo2.webp" alt="CyberSec Labs" 
+               onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'140\' height=\'40\' viewBox=\'0 0 140 40\'%3E%3Crect width=\'140\' height=\'40\' rx=\'20\' fill=\'%230c0f24\'/%3E%3Ctext x=\'20\' y=\'26\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\' fill=\'%234ec9e0\'%3ECyber%3C/text%3E%3Ctext x=\'85\' y=\'26\' font-family=\'Arial\' font-size=\'16\' font-weight=\'bold\' fill=\'%23a97cff\'%3ESec%3C/text%3E%3C/svg%3E'; this.onerror=null;">
+        </a>
+      </div>
+
+      <!-- title & subtitle -->
+      <h1>Create Secure Access</h1>
+      <div class="subhead">Join Cyber Security Command Center</div>
+
+      <!-- form - ALL FIELDS EMPTY (no pre-filled data) -->
+      <form action="404.html" method="GET" onsubmit="return validateForm()">
+        <div class="form-grid">
+          <!-- Full Name -->
+          <div class="form-group">
+            <label>Full Name <span style="color: #ff6b6b;">*</span></label>
+            <input type="text" id="fullName" placeholder="Your full name" 
+                   onkeypress="return (event.charCode > 64 && event.charCode < 91) || (event.charCode > 96 && event.charCode < 123) || event.charCode === 32 || event.charCode === 46"
+                   onpaste="return false" ondrop="return false">
+            <div id="nameError" class="error-message"></div>
+          </div>
+
+          <!-- Role -->
+          <div class="form-group">
+            <label>Security Role <span style="color: #ff6b6b;">*</span></label>
+            <select id="role">
+              <option value="" disabled selected>Select clearance level</option>
+              <option value="Admin">Security Admin</option>
+              <option value="Analyst">Security Analyst</option>
+              <!-- <option value="Auditor">Compliance Auditor</option> -->
+              <!-- <option value="Engineer">Security Engineer</option> -->
+              <!-- <option value="Manager">Security Manager</option> -->
+            </select>
+          </div>
+
+          <!-- Email Address -->
+          <div class="form-group">
+            <label>Email Address <span style="color: #ff6b6b;">*</span></label>
+            <input type="email" id="email" placeholder="security@company.com">
+            <div id="emailError" class="error-message"></div>
+          </div>
+
+          <!-- Organization -->
+          <div class="form-group">
+            <label>Organization / Company <span style="color: #ff6b6b;">*</span></label>
+            <input type="text" id="organization" placeholder="e.g., TechCorp, Bank, Hospital">
+            <div id="orgError" class="error-message"></div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label>Password <span style="color: #ff6b6b;">*</span></label>
+            <input type="password" id="password" placeholder="Create password">
+            <div id="passwordError" class="error-message"></div>
+          </div>
+
+          <!-- Confirm Password -->
+          <div class="form-group">
+            <label>Confirm Password <span style="color: #ff6b6b;">*</span></label>
+            <input type="password" id="confirmPassword" placeholder="Re-enter password">
+            <div id="confirmError" class="error-message"></div>
+          </div>
+        </div>
+
+        <!-- Terms checkbox -->
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms">
+          <label for="terms">I agree to the <a href="404.html">Security Terms</a> and <a href="404.html">Data Privacy Policy</a></label>
+        </div>
+
+        <!-- Create Account button -->
+        <button type="submit" class="create-btn">Create Secure Account</button>
+      </form>
+
+      <!-- Login link -->
+      <div class="login-link">
+        Already have security access? <a href="login.html">Login</a>
+      </div>
+
+      <!-- Secure footer -->
+      <div class="secure-footer">
+        <i class="fas fa-shield-halved"></i>
+        <span>256-bit AES encryption · Zero Trust Architecture</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- validation script (inline only, no popups) - ALL FIELDS MANDATORY -->
+  <script>
+    function validateForm() {
+      const name = document.getElementById('fullName');
+      const email = document.getElementById('email');
+      const password = document.getElementById('password');
+      const confirm = document.getElementById('confirmPassword');
+      const role = document.getElementById('role');
+      const organization = document.getElementById('organization');
+      const terms = document.getElementById('terms');
+      
+      document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+      document.querySelectorAll('input, select').forEach(el => el.classList.remove('input-error'));
+      
+      let isValid = true;
+
+      // Name validation
+      const nameRegex = /^[A-Za-z\s.]+$/;
+      if (!name.value.trim()) {
+        document.getElementById('nameError').textContent = 'Name is required';
+        name.classList.add('input-error');
+        isValid = false;
+      } else if (!nameRegex.test(name.value)) {
+        document.getElementById('nameError').textContent = 'Only letters, spaces, dots';
+        name.classList.add('input-error');
+        isValid = false;
+      }
+
+      // Role validation
+      if (!role.value) {
+        role.classList.add('input-error');
+        const roleError = document.createElement('div');
+        roleError.className = 'error-message';
+        roleError.textContent = 'Select your security role';
+        role.parentNode.appendChild(roleError);
+        isValid = false;
+      } else {
+        const existingRoleError = role.parentNode.querySelector('.error-message:not(#nameError):not(#emailError):not(#passwordError):not(#confirmError):not(#orgError)');
+        if (existingRoleError) existingRoleError.remove();
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!email.value.trim()) {
+        document.getElementById('emailError').textContent = 'Email is required';
+        email.classList.add('input-error');
+        isValid = false;
+      } else if (!emailRegex.test(email.value)) {
+        document.getElementById('emailError').textContent = 'Invalid email';
+        email.classList.add('input-error');
+        isValid = false;
+      }
+
+      // Organization validation - NOW MANDATORY
+      if (!organization.value.trim()) {
+        document.getElementById('orgError').textContent = 'Organization is required';
+        organization.classList.add('input-error');
+        isValid = false;
+      }
+
+      // Password validation: min 8 chars, at least one uppercase, one lowercase, one special character
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+      if (!password.value.trim()) {
+        document.getElementById('passwordError').textContent = 'Password is required';
+        password.classList.add('input-error');
+        isValid = false;
+      } else if (!passwordRegex.test(password.value)) {
+        document.getElementById('passwordError').textContent = 'Min 8 chars, 1 uppercase, 1 lowercase, 1 special';
+        password.classList.add('input-error');
+        isValid = false;
+      }
+
+      // Confirm password
+      if (!confirm.value.trim()) {
+        document.getElementById('confirmError').textContent = 'Confirm your password';
+        confirm.classList.add('input-error');
+        isValid = false;
+      } else if (password.value !== confirm.value) {
+        document.getElementById('confirmError').textContent = 'Passwords do not match';
+        confirm.classList.add('input-error');
+        isValid = false;
+      }
+
+      // Terms checkbox
+      if (!terms.checked) {
+        const termDiv = document.querySelector('.checkbox-group');
+        let termError = document.getElementById('termError');
+        if (!termError) {
+          termError = document.createElement('div');
+          termError.id = 'termError';
+          termError.className = 'error-message';
+          termDiv.parentNode.insertBefore(termError, termDiv.nextSibling);
+        }
+        termError.textContent = 'You must agree to security terms';
+        isValid = false;
+      } else {
+        const existing = document.getElementById('termError');
+        if (existing) existing.remove();
+      }
+
+      if (isValid) {
+        window.location.href = 'login.html';
+      }
+      return false;
+    }
+  </script>
+</body>
+</html>

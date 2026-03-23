@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>404 · Secure Path Not Found | CyberShield</title>
+  <!-- Inter font + Outfit for cyber feel -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #0a0e1a;
+      font-family: 'Inter', 'Outfit', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      overflow-x: hidden;
+      width: 100%;
+      position: relative;
+    }
+
+    /* Animated Cyber Grid Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        linear-gradient(rgba(59, 130, 246, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59, 130, 246, 0.04) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Glowing Orb Effect */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 550px;
+      width: 100%;
+      background: #111827;
+      border-radius: 36px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(59, 130, 246, 0.15);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      animation: fadeSlideUp 0.6s ease-out;
+      position: relative;
+      z-index: 1;
+      backdrop-filter: blur(2px);
+    }
+
+    .container:hover {
+      box-shadow: 0 30px 60px -12px rgba(59, 130, 246, 0.2), 0 0 0 1px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    /* Shield Icon */
+    .shield-icon {
+      font-size: 4rem;
+      color: #3b82f6;
+      margin-bottom: 16px;
+      animation: softFloat 3s infinite ease-in-out;
+      display: inline-block;
+      filter: drop-shadow(0 0 12px rgba(59, 130, 246, 0.4));
+    }
+
+    .four04 {
+      font-size: 96px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+      margin-bottom: 8px;
+      letter-spacing: 4px;
+      animation: softFloat 3s infinite ease-in-out;
+      display: inline-block;
+      text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #f0f3fa;
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+
+    p {
+      font-size: 18px;
+      color: #8b9bb0;
+      margin-bottom: 32px;
+      font-weight: 400;
+      line-height: 1.5;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+
+    /* Status Badge */
+    .status-badge {
+      display: inline-block;
+      background: rgba(59, 130, 246, 0.12);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #60a5fa;
+      margin-bottom: 20px;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      letter-spacing: 0.5px;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.15s;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.4s;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #3b82f6;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 50px;
+      box-shadow: 0 6px 14px rgba(59, 130, 246, 0.25);
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      min-width: 180px;
+      border: 1px solid transparent;
+    }
+
+    .btn i {
+      font-size: 14px;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-home {
+      background: #3b82f6;
+      border: 1px solid #3b82f6;
+    }
+
+    .btn-home:hover {
+      background: #2563eb;
+      transform: translateY(-3px);
+      box-shadow: 0 15px 25px rgba(59, 130, 246, 0.35);
+    }
+
+    .btn-home:hover i {
+      transform: translateX(-4px);
+    }
+
+    .btn-prev {
+      background: transparent;
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      box-shadow: none;
+    }
+
+    .btn-prev:hover {
+      background: rgba(59, 130, 246, 0.1);
+      transform: translateY(-3px);
+      border-color: #3b82f6;
+      color: #93c5fd;
+    }
+
+    .btn-prev:hover i {
+      transform: translateX(-4px);
+    }
+
+    /* Quick Links Section */
+    .quick-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(59, 130, 246, 0.2);
+      opacity: 0;
+      animation: fadeIn 0.5s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+
+    .quick-link {
+      color: #8b9bb0;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .quick-link i {
+      font-size: 0.75rem;
+      color: #3b82f6;
+    }
+
+    .quick-link:hover {
+      color: #60a5fa;
+      transform: translateY(-2px);
+    }
+
+    @keyframes fadeSlideUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes softFloat {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 2.5rem 1.8rem;
+      }
+      
+      .button-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 14px 24px;
+        font-size: 15px;
+      }
+
+      .four04 {
+        font-size: 80px;
+      }
+
+      .shield-icon {
+        font-size: 3rem;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 15px;
+        margin-bottom: 28px;
+      }
+
+      .quick-links {
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 450px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
+      .four04 {
+        font-size: 64px;
+      }
+      .shield-icon {
+        font-size: 2.5rem;
+      }
+      h2 {
+        font-size: 22px;
+      }
+      p {
+        font-size: 14px;
+        margin-bottom: 24px;
+      }
+      .btn {
+        max-width: 260px;
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+      .status-badge {
+        font-size: 0.7rem;
+        padding: 4px 12px;
+      }
+      .quick-link {
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .four04 {
+        font-size: 52px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      p {
+        font-size: 13px;
+      }
+      .btn {
+        max-width: 220px;
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #0f1622;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3b82f6;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Shield Icon - Cyber Security Symbol -->
+    <div class="shield-icon">
+      <i class="fas fa-shield-halved"></i>
+    </div>
+    
+    <!-- Status Badge -->
+    <div class="status-badge">
+      <i class="fas fa-exclamation-triangle" style="margin-right: 6px;"></i> SECURITY ALERT · ROUTE NOT FOUND
+    </div>
+    
+    <!-- 404 with Cyber Glow -->
+    <div class="four04">404</div>
+    <h2>secure path not found</h2>
+    <p>The requested resource could not be located. This incident has been logged for security monitoring.</p>
+    
+    <div class="button-group">
+      <a href="home.html" class="btn btn-home">
+        <i class="fas fa-shield-halved"></i> Return to Home
+      </a>
+      
+      <a href="javascript:history.back()" class="btn btn-prev">
+        <i class="fas fa-undo-alt"></i> previous secure zone
+      </a>
+    </div>
+    
+    <!-- Quick Navigation Links -->
+    <div class="quick-links">
+      <!-- <a href="javascript:void(0)" class="quick-link">
+        <i class="fas fa-chart-line"></i> Dashboard
+      </a> -->
+      <a href="javascript:void(0)" onclick="showReport()" class="quick-link">
+        <i class="fas fa-flag"></i> Report Broken Link
+      </a>
+      <a href="javascript:void(0)" onclick="showSupport()" class="quick-link">
+        <i class="fas fa-headset"></i> Security Support
+      </a>
+      <a href="javascript:void(0)" onclick="window.location.reload()" class="quick-link">
+        <i class="fas fa-sync-alt"></i> Retry Connection
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Simple functions for interactive elements
+    function showSupport() {
+      alert('🔒 CyberShield Security Support\n\nFor immediate assistance:\n• Email: soc@cybershield.com\n• Emergency Hotline: 1-888-SOC-ALERT\n• 24/7 Incident Response Team\n\nPlease provide the error code: 404-SECURE-ROUTE');
+    }
+    
+    function showReport() {
+      alert('📝 Report Broken Security Link\n\nThank you for helping us maintain security integrity!\n\nPlease note:\n• URL: ' + window.location.href + '\n• Timestamp: ' + new Date().toLocaleString() + '\n\nOur security team will investigate this issue.');
+    }
+    
+    // Console security message
+    console.log('%c🔒 CyberShield Security Monitor', 'color: #3b82f6; font-size: 14px; font-weight: bold;');
+    console.log('%c404 Error - Secure route not found. If this is unexpected, please report to SOC.', 'color: #8b9bb0; font-size: 12px;');
+    
+    // Add keyboard shortcut for going back (Alt + Left Arrow)
+    document.addEventListener('keydown', function(e) {
+      if (e.altKey && e.key === 'ArrowLeft') {
+        e.preventDefault();
+        window.history.back();
+      }
+    });
+  </script>
+</body>
+</html>

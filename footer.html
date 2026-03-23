@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Cyber Security Services · Footer</title>
+    <!-- Font Awesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0B1026;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== CYBER SECURITY FOOTER ===== */
+        .cyber-footer {
+            background: #0B1026;
+            border-top: 1px solid rgba(0, 240, 255, 0.15);
+            padding: 50px 0 20px;
+            font-family: 'Inter', sans-serif;
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Main grid */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        /* Company info */
+        .footer-about {
+            max-width: 350px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-logo a {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .footer-logo img {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
+        }
+
+        .footer-logo img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 15px rgba(0, 240, 255, 0.5));
+        }
+
+        .footer-about p {
+            color: #B0C0FF;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+
+        /* Social icons */
+        .footer-social {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-social a {
+            width: 38px;
+            height: 38px;
+            background: rgba(0, 240, 255, 0.08);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #B0C0FF;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            font-size: 16px;
+        }
+
+        .footer-social a:hover {
+            background: #00F0FF;
+            color: #0B1026;
+            transform: translateY(-3px);
+            border-color: #00F0FF;
+        }
+
+        /* Footer headings */
+        .cyber-footer h3 {
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 22px;
+            letter-spacing: 0.5px;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Quick links - only navigation links */
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #B0C0FF;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: #00F0FF;
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            font-size: 10px;
+            color: #00F0FF;
+        }
+
+        /* Contact column */
+        .footer-contact .contact-item {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .footer-contact .contact-item i {
+            color: #00F0FF;
+            font-size: 14px;
+            margin-top: 3px;
+            min-width: 20px;
+        }
+
+        .footer-contact .contact-item p,
+        .footer-contact .contact-item a {
+            color: #B0C0FF;
+            font-size: 13px;
+            line-height: 1.6;
+            text-decoration: none;
+        }
+
+        .footer-contact .contact-item a:hover {
+            color: #00F0FF;
+        }
+
+        /* Security badge */
+        .security-badge {
+            background: rgba(0, 240, 255, 0.05);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 12px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .security-badge i {
+            color: #00F0FF;
+            font-size: 18px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        .security-badge p {
+            color: #B0C0FF;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .security-badge .badge-text {
+            color: #00F0FF;
+            font-weight: 600;
+            font-size: 11px;
+            letter-spacing: 1px;
+        }
+
+        /* Footer bottom */
+        .footer-bottom {
+            border-top: 1px solid rgba(0, 240, 255, 0.1);
+            padding-top: 25px;
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .footer-bottom p {
+            color: #6B7A8F;
+            font-size: 12px;
+        }
+
+        .footer-legal {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-legal a {
+            color: #6B7A8F;
+            text-decoration: none;
+            font-size: 12px;
+            transition: color 0.2s;
+        }
+
+        .footer-legal a:hover {
+            color: #00F0FF;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 35px;
+            }
+            .footer-about {
+                grid-column: span 2;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                padding: 0 1.5rem;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            .footer-about {
+                grid-column: span 1;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-legal {
+                justify-content: center;
+            }
+            .footer-logo img {
+                width: 90px;
+                height: 90px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-container {
+                padding: 0 1rem;
+            }
+            .footer-logo img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CYBER SECURITY FOOTER ===== -->
+    <footer class="cyber-footer">
+        <div class="footer-container">
+
+            <!-- Main grid -->
+            <div class="footer-grid">
+                
+                <!-- Column 1: Logo Only + About + Social -->
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <a href="home.html">
+                            <img src="logo2.webp" alt="Cyber Security Services">
+                        </a>
+                    </div>
+                    <p>Enterprise-grade security solutions protecting businesses from evolving cyber threats with AI-powered detection and 24/7 incident response.</p>
+                    <div class="footer-social">
+                        <a href="404.html" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="404.html" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="404.html" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="404.html" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Quick Links (only navigation links from header) -->
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="home.html"><i class="fas fa-chevron-right"></i> HOME</a></li>
+                        <li><a href="services.html"><i class="fas fa-chevron-right"></i> SERVICES</a></li>
+                        <li><a href="solutions.html"><i class="fas fa-chevron-right"></i> SOLUTIONS</a></li>
+                        <li><a href="insights.html"><i class="fas fa-chevron-right"></i> INSIGHTS</a></li>
+                        <li><a href="contact.html"><i class="fas fa-chevron-right"></i> CONTACT</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Resources -->
+                <div class="footer-links">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Security Blog</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Documentation</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> API Reference</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Threat Intelligence</a></li>
+                        <li><a href="404.html"><i class="fas fa-chevron-right"></i> Status Page</a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 4: Contact & Security Badge -->
+                <div class="footer-contact">
+                    <h3>Contact</h3>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="404.html">security@cybershield.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="404.html">+1 (888) 555-1234</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <p>24/7 Emergency Response</p>
+                    </div>
+                    <div class="security-badge">
+                        <i class="fas fa-shield-halved"></i>
+                        <p>256-bit AES Encryption</p>
+                        <span class="badge-text">SOC 2 Type II Certified</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer bottom -->
+            <div class="footer-bottom">
+                <p>© 2026 Cyber Security Services. All rights reserved.</p>
+                <div class="footer-legal">
+                    <a href="404.html">Privacy Policy</a>
+                    <a href="404.html">Terms of Service</a>
+                    <a href="404.html">Cookie Policy</a>
+                    <a href="404.html">GDPR Compliance</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple script for footer interactions
+        (function() {
+            // Handle logo image error - fallback to shield icon
+            const logoImg = document.querySelector('.footer-logo img');
+            if (logoImg) {
+                logoImg.addEventListener('error', function() {
+                    this.style.display = 'none';
+                    const parent = this.parentElement;
+                    const fallbackIcon = document.createElement('i');
+                    fallbackIcon.className = 'fas fa-shield-halved';
+                    fallbackIcon.style.fontSize = '4rem';
+                    fallbackIcon.style.color = '#00F0FF';
+                    fallbackIcon.style.filter = 'drop-shadow(0 0 10px rgba(0, 240, 255, 0.3))';
+                    parent.appendChild(fallbackIcon);
+                });
+            }
+            
+            console.log('%c🔒 Cyber Security Services Footer Loaded', 'color: #00F0FF; font-size: 12px;');
+        })();
+    </script>
+</body>
+</html>

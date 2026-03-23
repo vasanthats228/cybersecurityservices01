@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Security Services · Preloader</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Preloader Container */
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0e1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    /* Hide preloader after loading */
+    .preloader.hide {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* Loader Content */
+    .loader-content {
+      text-align: center;
+    }
+
+    /* Shield Icon Animation */
+    .shield-icon {
+      font-size: 4rem;
+      color: #00d4ff;
+      margin-bottom: 1.5rem;
+      display: inline-block;
+      animation: shieldPulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes shieldPulse {
+      0%, 100% {
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+      }
+      50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 25px rgba(0, 212, 255, 0.6);
+      }
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 50px;
+      height: 50px;
+      margin: 0 auto 1.5rem;
+      border: 3px solid rgba(0, 212, 255, 0.2);
+      border-top-color: #00d4ff;
+      border-right-color: #0099ff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Progress Bar */
+    .progress-bar {
+      width: 250px;
+      height: 3px;
+      background: rgba(0, 212, 255, 0.2);
+      border-radius: 3px;
+      margin: 1rem auto;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00d4ff, #0099ff);
+      border-radius: 3px;
+      transition: width 0.1s linear;
+    }
+
+    /* Loading Text */
+    .loading-text {
+      color: #8b9bb0;
+      font-size: 0.85rem;
+      font-family: monospace;
+      letter-spacing: 1px;
+    }
+
+    .loading-text i {
+      color: #00d4ff;
+      margin-right: 6px;
+    }
+
+    /* Pulse Dots */
+    .dots {
+      display: inline-block;
+    }
+
+    .dots span {
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      background: #00d4ff;
+      border-radius: 50%;
+      margin: 0 2px;
+      animation: dotPulse 1.4s infinite;
+    }
+
+    .dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes dotPulse {
+      0%, 60%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      30% {
+        transform: scale(1.5);
+        opacity: 1;
+      }
+    }
+
+    /* Brand Name */
+    .brand {
+      font-size: 1.3rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #00d4ff, #0099ff, #0066cc);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="loader-content">
+      <div class="brand">CYBER SECURITY SERVICES</div>
+      <div class="spinner"></div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="loading-text">
+        <i class="fas fa-shield-halved"></i> Loading secure environment<span class="dots"><span>.</span><span>.</span><span>.</span></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Your Main Page Content Goes Here (hidden until redirect) -->
+  <div id="mainContent" style="opacity: 0;">
+    <h1 style="color: white; text-align: center; margin-top: 50px;">Welcome to Cyber Security Services</h1>
+  </div>
+
+  <script>
+    // Font Awesome for icons
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css';
+    document.head.appendChild(link);
+    
+    // Preloader script with redirect to home.html
+    (function() {
+      const preloader = document.getElementById('preloader');
+      const progressFill = document.getElementById('progressFill');
+      
+      let progress = 0;
+      let loadingComplete = false;
+      
+      // Simulate loading progress
+      function updateProgress() {
+        if (progress < 100) {
+          // Random increment between 2-8%
+          const increment = Math.floor(Math.random() * 6) + 2;
+          progress = Math.min(progress + increment, 100);
+          progressFill.style.width = progress + '%';
+          
+          // Schedule next update with random delay
+          const delay = Math.random() * 150 + 50;
+          setTimeout(updateProgress, delay);
+        } else if (!loadingComplete) {
+          loadingComplete = true;
+          // Loading complete - redirect to home.html
+          setTimeout(() => {
+            preloader.classList.add('hide');
+            
+            // Redirect to home.html
+            window.location.href = 'home.html';
+          }, 500);
+        }
+      }
+      
+      // Start loading simulation
+      setTimeout(updateProgress, 100);
+      
+      // Fallback: ensure redirect after max 4 seconds
+      setTimeout(() => {
+        if (!loadingComplete) {
+          loadingComplete = true;
+          progress = 100;
+          progressFill.style.width = '100%';
+          setTimeout(() => {
+            preloader.classList.add('hide');
+            window.location.href = 'home.html';
+          }, 300);
+        }
+      }, 4000);
+      
+      // Console message
+      console.log('%c🔒 Cyber Security Services · Redirecting to Dashboard', 'color: #00d4ff; font-size: 12px;');
+    })();
+  </script>
+</body>
+</html>

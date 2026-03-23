@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Stackly · Security Solutions</title>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Inter & Clash Display -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Clash+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0a0f1f;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden; /* kill horizontal scroll */
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        /* Dark palette */
+        :root {
+            --bg-deep: #0a0f1f;
+            --bg-card: #111827;
+            --accent-1: #3b82f6;
+            --accent-2: #8b5cf6;
+            --accent-3: #ec4899;
+            --accent-4: #14b8a6;
+            --border-light: rgba(59, 130, 246, 0.2);
+            --text-muted: #94a3b8;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        /* buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--accent-1);
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+            transform: translateY(-1px);
+        }
+        .btn-outline {
+            border: 1px solid var(--accent-1);
+            color: white;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background: var(--accent-1);
+        }
+        .btn-link {
+            color: var(--accent-1);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .btn-link:hover {
+            gap: 0.6rem;
+        }
+
+        /* media box (images / video) */
+        .media-box {
+            width: 100%;
+            height: 100%;
+            min-height: 260px;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #1e293b;
+        }
+        .media-box img, .media-box video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* section spacing */
+        .section {
+            padding: 5rem 0;
+            width: 100%;
+        }
+        .section-darker {
+            background: #070c1a;
+        }
+
+        /* animations */
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: 0.6s ease;
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: 0.6s ease;
+        }
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: 0.6s ease;
+        }
+        .reveal-left.active, .reveal-right.active, .reveal-up.active {
+            opacity: 1;
+            transform: translate(0);
+        }
+
+        /* button group - stacks nicely on mobile */
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        @media (max-width: 480px) {
+            .btn-group {
+                flex-direction: column;
+                width: 100%;
+            }
+            .btn-group .btn {
+                width: 100%;
+                text-align: center;
+                white-space: normal;
+            }
+        }
+
+        /* ===== SECTION STYLES ===== */
+        /* 1. hero */
+        .hero-simple {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 2rem 0;
+        }
+        .pill {
+            display: inline-block;
+            padding: 0.3rem 1.2rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid var(--accent-1);
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-bottom: 2rem;
+        }
+
+        /* 2. metrics row */
+        .metric-row {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        .metric-item {
+            background: var(--bg-card);
+            padding: 2rem 2rem;
+            border-radius: 16px;
+            text-align: center;
+            min-width: 160px;
+            flex: 1 1 160px;
+        }
+        .metric-value {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent-1);
+            line-height: 1.2;
+        }
+        .metric-icon {
+            font-size: 2rem;
+            color: var(--accent-2);
+            margin-bottom: 0.5rem;
+        }
+
+        /* 3. asymmetric split */
+        .asymmetric {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        /* 4. card row */
+        .card-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .card-minimal {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+            height: 100%;
+        }
+        .card-icon {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 5. steps */
+        .steps-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .step-box {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+            position: relative;
+        }
+        .step-num {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-2);
+            opacity: 0.15;
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+        }
+        .step-icon {
+            font-size: 2rem;
+            color: var(--accent-1);
+            margin-bottom: 1rem;
+        }
+
+        /* 6. feature two column */
+        .feature-two {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        .feature-mini {
+            background: var(--bg-card);
+            padding: 2rem;
+            border-radius: 16px;
+        }
+        .feature-mini i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 7. testimonial */
+        .quote-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            padding: 3rem;
+            border-radius: 24px;
+            text-align: center;
+        }
+        .quote-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            margin: 1.5rem auto 1rem;
+            background-size: cover;
+            background-position: center;
+            border: 2px solid var(--accent-1);
+        }
+
+        /* 8. logo cloud */
+        .logo-cloud {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            background: var(--bg-card);
+            padding: 2.5rem;
+            border-radius: 60px;
+        }
+        .logo-item {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* 9. cta */
+        .cta-center {
+            text-align: center;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            padding: 4rem;
+            border-radius: 28px;
+        }
+
+        /* 10. UNIQUE LAST SECTION — image right, content left */
+        .last-unique {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: linear-gradient(145deg, #0f1a2f, #111827);
+            border-radius: 32px;
+            padding: 3rem;
+            margin: 0 auto;
+        }
+        .last-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .last-content p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+        .last-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        .last-features li {
+            margin: 1rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        .last-features i {
+            color: var(--accent-1);
+            font-size: 1.2rem;
+        }
+
+        /* responsive */
+        @media (max-width: 1024px) {
+            .card-row, .steps-row, .feature-two {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .asymmetric,
+            .card-row,
+            .steps-row,
+            .feature-two,
+            .last-unique {
+                grid-template-columns: 1fr;
+            }
+            .last-unique {
+                padding: 2rem;
+            }
+            .metric-item {
+                flex: 1 1 100%;
+            }
+            .container { padding: 0 1.5rem; }
+            .section { padding: 3rem 0; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 1rem; }
+            .cta-center { padding: 2rem; }
+            .logo-cloud { padding: 1.5rem; gap: 1.5rem; }
+        }
+
+        /* extra insurance */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+        img, video {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER PLACEHOLDER - Header will load here -->
+  <div id="header-placeholder"></div>
+  
+    <!-- 1. HERO -->
+    <section class="section">
+        <div class="container hero-simple">
+            <span class="pill reveal-up">⚡ STACKLY SOLUTIONS</span>
+            <h1 class="reveal-up" style="font-size: 3.2rem;">Security infrastructure for the modern enterprise</h1>
+            <p class="reveal-up" style="color: var(--text-muted); margin: 1.5rem 0;">Integrated protection across cloud, network, and endpoint with AI-powered threat detection.</p>
+            <div class="btn-group reveal-up" style="justify-content: center;">
+                <a href="404.html" class="btn btn-primary">Explore solutions</a>
+                <a href="404.html" class="btn btn-outline">Talk to an expert</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. METRICS -->
+    <section class="section-darker">
+        <div class="container metric-row">
+            <div class="metric-item reveal-up">
+                <div class="metric-icon"><i class="fas fa-shield-halved"></i></div>
+                <div class="metric-value">98%</div>
+                <p>Threat prevention</p>
+                <a href="404.html" class="btn-link">↗</a>
+            </div>
+            <div class="metric-item reveal-up">
+                <div class="metric-icon"><i class="fas fa-building"></i></div>
+                <div class="metric-value">500+</div>
+                <p>Enterprise clients</p>
+                <a href="404.html" class="btn-link">↗</a>
+            </div>
+            <div class="metric-item reveal-up">
+                <div class="metric-icon"><i class="fas fa-clock"></i></div>
+                <div class="metric-value">24/7</div>
+                <p>Response team</p>
+                <a href="404.html" class="btn-link">↗</a>
+            </div>
+            <div class="metric-item reveal-up">
+                <div class="metric-icon"><i class="fas fa-calendar"></i></div>
+                <div class="metric-value">15+</div>
+                <p>Years expertise</p>
+                <a href="404.html" class="btn-link">↗</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. ZERO TRUST SPLIT -->
+    <section class="section">
+        <div class="container asymmetric">
+            <div class="media-box reveal-left">
+                <img src="css1.webp" alt="Zero Trust">
+            </div>
+            <div class="reveal-right">
+                <span style="color: var(--accent-1); text-transform: uppercase;">Zero trust</span>
+                <h2 style="font-size: 2.2rem; margin: 1rem 0;">Never trust, always verify</h2>
+                <p style="color: var(--text-muted);">Every access request is authenticated, authorized, and continuously verified across your infrastructure.</p>
+                <ul style="list-style: none; margin: 2rem 0;">
+                    <li style="margin: 0.8rem 0;"><i class="fas fa-check-circle" style="color: var(--accent-1);"></i> Continuous verification</li>
+                    <li style="margin: 0.8rem 0;"><i class="fas fa-check-circle" style="color: var(--accent-1);"></i> Micro-segmentation</li>
+                    <li style="margin: 0.8rem 0;"><i class="fas fa-check-circle" style="color: var(--accent-1);"></i> Just-in-time access</li>
+                </ul>
+                <a href="404.html" class="btn btn-primary">Learn more</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CORE SOLUTIONS -->
+    <section class="section-darker">
+        <div class="container">
+            <h2 class="reveal-up" style="font-size: 2.2rem; text-align: center;">Core solutions</h2>
+            <div class="card-row">
+                <div class="card-minimal reveal-left">
+                    <div class="card-icon" style="color: var(--accent-1);"><i class="fas fa-shield-halved"></i></div>
+                    <h3>Network security</h3>
+                    <p style="color: var(--text-muted);">Advanced firewall, IDS/IPS, segmentation.</p>
+                    <a href="404.html" class="btn-link">Learn more →</a>
+                </div>
+                <div class="card-minimal reveal-up">
+                    <div class="card-icon" style="color: var(--accent-2);"><i class="fas fa-cloud"></i></div>
+                    <h3>Cloud protection</h3>
+                    <p style="color: var(--text-muted);">AWS, Azure, GCP with CNAPP.</p>
+                    <a href="404.html" class="btn-link">Learn more →</a>
+                </div>
+                <div class="card-minimal reveal-right">
+                    <div class="card-icon" style="color: var(--accent-3);"><i class="fas fa-laptop"></i></div>
+                    <h3>Endpoint defense</h3>
+                    <p style="color: var(--text-muted);">EDR, XDR, next-gen AV.</p>
+                    <a href="404.html" class="btn-link">Learn more →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. HOW IT WORKS -->
+    <section class="section">
+        <div class="container">
+            <h2 class="reveal-up" style="font-size: 2.2rem; text-align: center;">How it works</h2>
+            <div class="steps-row">
+                <div class="step-box reveal-left">
+                    <div class="step-num">01</div>
+                    <div class="step-icon"><i class="fas fa-search"></i></div>
+                    <h3>Assessment</h3>
+                    <p style="color: var(--text-muted);">Deep infrastructure analysis</p>
+                    <a href="404.html" class="btn-link">Learn</a>
+                </div>
+                <div class="step-box reveal-up">
+                    <div class="step-num">02</div>
+                    <div class="step-icon" style="color: var(--accent-2);"><i class="fas fa-cogs"></i></div>
+                    <h3>Deployment</h3>
+                    <p style="color: var(--text-muted);">Zero-trust implementation</p>
+                    <a href="404.html" class="btn-link">Learn</a>
+                </div>
+                <div class="step-box reveal-right">
+                    <div class="step-num">03</div>
+                    <div class="step-icon" style="color: var(--accent-3);"><i class="fas fa-eye"></i></div>
+                    <h3>Monitoring</h3>
+                    <p style="color: var(--text-muted);">24/7 threat detection</p>
+                    <a href="404.html" class="btn-link">Learn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. WHY CHOOSE US -->
+    <section class="section-darker">
+        <div class="container">
+            <h2 class="reveal-up" style="font-size: 2.2rem; text-align: center;">Why choose us</h2>
+            <div class="feature-two">
+                <div class="feature-mini reveal-left">
+                    <i class="fas fa-bolt" style="color: var(--accent-1);"></i>
+                    <h3>AI detection</h3>
+                    <p style="color: var(--text-muted);">99.9% threat accuracy</p>
+                    <a href="404.html" class="btn-link">Learn →</a>
+                </div>
+                <div class="feature-mini reveal-right">
+                    <i class="fas fa-shield" style="color: var(--accent-2);"></i>
+                    <h3>Zero trust</h3>
+                    <p style="color: var(--text-muted);">Continuous verification</p>
+                    <a href="404.html" class="btn-link">Learn →</a>
+                </div>
+                <div class="feature-mini reveal-left">
+                    <i class="fas fa-robot" style="color: var(--accent-3);"></i>
+                    <h3>Auto response</h3>
+                    <p style="color: var(--text-muted);">Contain threats in seconds</p>
+                    <a href="404.html" class="btn-link">Learn →</a>
+                </div>
+                <div class="feature-mini reveal-right">
+                    <i class="fas fa-check-circle" style="color: var(--accent-4);"></i>
+                    <h3>Compliance</h3>
+                    <p style="color: var(--text-muted);">SOC2, ISO27001, HIPAA</p>
+                    <a href="404.html" class="btn-link">Learn →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. TESTIMONIAL -->
+    <section class="section">
+        <div class="container quote-box reveal-up">
+            <i class="fas fa-quote-left fa-2x" style="color: var(--accent-1); opacity: 0.2;"></i>
+            <p style="font-size: 1.2rem; margin: 1rem 0;">"Stackly transformed our security posture. Response time dropped by 80%."</p>
+            <div class="quote-avatar" style="background-image: url('css2.webp')"></div>
+            <div><strong>Michael Chen</strong><br><span style="color: var(--text-muted);">CISO, FinCore</span></div>
+            <a href="404.html" class="btn btn-link">Read case study →</a>
+        </div>
+    </section>
+
+    <!-- 8. PARTNERS -->
+    <section class="section-darker">
+        <div class="container">
+            <p class="reveal-up" style="text-align: center; color: var(--text-muted);">Trusted by leaders</p>
+            <div class="logo-cloud reveal-up">
+                <span class="logo-item">Atlantiz</span>
+                <span class="logo-item">Nexum</span>
+                <span class="logo-item">FinCore</span>
+                <span class="logo-item">HealthPlus</span>
+                <span class="logo-item">SecureTech</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. CTA -->
+    <section class="section">
+        <div class="container cta-center reveal-up">
+            <h2 style="font-size: 2.2rem;">Ready to secure your business?</h2>
+            <p style="margin: 1rem 0;">Join 500+ enterprises that trust Stackly.</p>
+            <div class="btn-group" style="justify-content: center;">
+                <a href="404.html" class="btn btn-primary">Get started</a>
+                <a href="404.html" class="btn btn-outline">Contact sales</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. UNIQUE LAST SECTION — image right, content left (fully responsive) -->
+    <section class="section-darker" style="padding-top: 0;">
+        <div class="container last-unique">
+            <div class="last-content reveal-left">
+                <h2>Enterprise <span style="color: var(--accent-1);">grade</span> protection</h2>
+                <p>Our unified platform delivers comprehensive security across your entire infrastructure with zero‑trust principles and AI‑driven automation.</p>
+                <ul class="last-features">
+                    <li><i class="fas fa-check-circle"></i> 24/7 dedicated security team</li>
+                    <li><i class="fas fa-check-circle"></i> Custom threat intelligence feeds</li>
+                    <li><i class="fas fa-check-circle"></i> On-premise or cloud deployment</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time compliance monitoring</li>
+                </ul>
+                <div class="btn-group">
+                    <a href="404.html" class="btn btn-primary">Request demo</a>
+                    <a href="404.html" class="btn btn-outline">Download brochure</a>
+                </div>
+            </div>
+            <div class="media-box reveal-right" style="min-height: 320px;">
+                <img src="css15.webp" alt="Security Operations">
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER PLACEHOLDER - Footer will load here -->
+  <div id="footer-placeholder"></div>
+
+    <script>
+
+        // ===== COMPLETE HEADER & FOOTER LOADER WITH HAMBURGER MENU =====
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // ===== FUNCTION TO SET BODY PADDING BASED ON HEADER HEIGHT =====
+    function setBodyPadding() {
+        const header = document.querySelector('.cyber-header, header');
+        if (header) {
+            const headerHeight = header.offsetHeight;
+            document.body.style.paddingTop = headerHeight + 'px';
+        } else {
+            document.body.style.paddingTop = '0px';
+        }
+    }
+
+    // ===== LOAD HEADER =====
+    fetch('header.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Header file not found');
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('header-placeholder').innerHTML = data;
+            setBodyPadding();
+            initHamburgerMenu();
+            initScrollEffect();
+            
+            // Update padding on window resize
+            window.addEventListener('resize', function() {
+                setBodyPadding();
+            });
+            
+            // Refresh AOS after header loads
+            setTimeout(() => {
+                if (typeof aosAnimation === 'function') aosAnimation();
+            }, 100);
+        })
+        .catch(error => {
+            console.warn('Header could not be loaded:', error);
+            document.getElementById('header-placeholder').innerHTML = 
+                '<div style="background:#0B1026; color:#ff6b6b; padding:1rem; text-align:center; position:fixed; top:0; width:100%; z-index:10000;">⚠️ Header Not Found - Check header.html file</div>';
+            setBodyPadding();
+        });
+
+    // ===== LOAD FOOTER =====
+    fetch('footer.html')
+        .then(response => {
+            if (!response.ok) throw new Error('Footer file not found');
+            return response.text();
+        })
+        .then(data => {
+            document.getElementById('footer-placeholder').innerHTML = data;
+        })
+        .catch(error => {
+            console.warn('Footer could not be loaded:', error);
+            document.getElementById('footer-placeholder').innerHTML = 
+                '<div style="background:#0B1026; color:#ff6b6b; padding:2rem; text-align:center;">⚠️ Footer Not Found - Check footer.html file</div>';
+        });
+
+    // ===== HAMBURGER MENU FUNCTIONALITY =====
+    function initHamburgerMenu() {
+        const hamburger = document.getElementById('hamburgerBtn');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+        const closeBtn = document.getElementById('closeMenuBtn');
+        
+        // If elements don't exist, exit
+        if (!hamburger || !fullscreenMenu) return;
+        
+        // Function to open menu
+        function openMenu() {
+            fullscreenMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            document.body.style.position = 'fixed';
+            document.body.style.width = '100%';
+        }
+        
+        // Function to close menu
+        function closeMenu() {
+            fullscreenMenu.classList.remove('active');
+            document.body.style.overflow = '';
+            document.body.style.position = '';
+            document.body.style.width = '';
+        }
+        
+        // Open menu on hamburger click
+        hamburger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            openMenu();
+        });
+        
+        // Close menu on close button click
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                closeMenu();
+            });
+        }
+        
+        // Close menu on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && fullscreenMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Close menu when clicking on any mobile link
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a, .mobile-actions a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                closeMenu();
+            });
+        });
+        
+        // Close menu on window resize (if switching to desktop)
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1000 && fullscreenMenu.classList.contains('active')) {
+                closeMenu();
+            }
+        });
+        
+        // Prevent body scroll when menu is open (touch devices)
+        fullscreenMenu.addEventListener('touchmove', function(e) {
+            if (fullscreenMenu.classList.contains('active')) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+    
+    // ===== HEADER SCROLL EFFECT =====
+    function initScrollEffect() {
+        const header = document.querySelector('.cyber-header');
+        if (!header) return;
+        
+        function handleScroll() {
+            if (window.scrollY > 20) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }
+        
+        window.addEventListener('scroll', handleScroll);
+        handleScroll(); // Initial check
+    }
+    
+    // ===== AOS ANIMATION FUNCTION (if AOS is not loaded) =====
+    if (typeof aosAnimation !== 'function') {
+        window.aosAnimation = function() {
+            const elements = document.querySelectorAll('.aos-left, .aos-right, .aos-up');
+            for (let i = 0; i < elements.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = elements[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    elements[i].classList.add('aos-active');
+                }
+            }
+        };
+        
+        window.addEventListener('scroll', window.aosAnimation);
+        window.addEventListener('load', window.aosAnimation);
+    }
+    
+    // ===== FAQ ACCORDION FUNCTIONALITY =====
+    function initFaqAccordion() {
+        const faqQuestions = document.querySelectorAll('.faq-corp-question');
+        faqQuestions.forEach(q => {
+            // Remove any existing listeners to avoid duplicates
+            q.removeEventListener('click', handleFaqClick);
+            q.addEventListener('click', handleFaqClick);
+        });
+    }
+    
+    function handleFaqClick() {
+        const answer = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        answer.classList.toggle('open');
+        if (icon) {
+            icon.classList.toggle('fa-plus');
+            icon.classList.toggle('fa-minus');
+        }
+    }
+    
+    // Initialize FAQ after content loads
+    setTimeout(() => {
+        initFaqAccordion();
+    }, 500);
+    
+    // ===== WATCH FOR DYNAMIC CONTENT CHANGES =====
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'childList' && mutation.addedNodes.length > 0) {
+                // Re-initialize FAQ when new content is added
+                initFaqAccordion();
+                // Re-run AOS animation
+                if (typeof window.aosAnimation === 'function') {
+                    setTimeout(window.aosAnimation, 100);
+                }
+            }
+        });
+    });
+    
+    // Start observing the document body for DOM changes
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
+});
+        //=========================================================
+        function reveal() {
+            const elements = document.querySelectorAll('.reveal-left, .reveal-right, .reveal-up');
+            const windowHeight = window.innerHeight;
+            elements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < windowHeight - 100 && rect.bottom > 0) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+        window.addEventListener('resize', reveal);
+    </script>
+</body>
+</html>
